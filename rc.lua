@@ -17,6 +17,9 @@ require("debian.menu")
 -- Load battery widget
 require("battery")
 
+-- Load spotify widget
+require("spotify")
+
 -- Load volume widget
 require("volume")
 
@@ -225,6 +228,7 @@ awful.screen.connect_for_each_screen(function(s)
 
       -- Add widgets to the wibox
       s.mywibox:setup {
+
 	 layout = wibox.layout.align.horizontal,
 	 { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
@@ -235,6 +239,7 @@ awful.screen.connect_for_each_screen(function(s)
 	 s.mytasklist, -- Middle widget
 	 { -- Right widgets
 	    layout = wibox.layout.fixed.horizontal,
+	    spotify_widget,
 	    volume_widget,
 	    battery_widget,
 	    mykeyboardlayout,
@@ -382,7 +387,17 @@ globalkeys = awful.util.table.join(
       {description = "decrease volume", group = "custom"}),
    awful.key({ }, "XF86AudioMute",
       function () awful.spawn("amixer -D pulse set Master +1 toggle") end,
-      {description = "mute volume", group = "custom"})
+      {description = "mute volume", group = "custom"}),
+
+   awful.key({ }, "XF86AudioPlay",
+      function () awful.spawn("sp play") end,
+      {description = "Spotify Play/Pause", group = "custom"}),
+   awful.key({ }, "XF86AudioPrev",
+      function () awful.spawn("sp prev") end,
+      {description = "Spotify prev", group = "custom"}),
+   awful.key({ }, "XF86AudioNext",
+      function () awful.spawn("sp next") end,
+      {description = "Spotify next", group = "custom"})
 )
 
 clientkeys = awful.util.table.join(
