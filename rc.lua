@@ -24,6 +24,9 @@ require("spotify")
 require("volume")
 
 
+-- Widget seperator
+sprtr = wibox.widget.textbox()
+sprtr:set_text(" : ")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -240,8 +243,11 @@ awful.screen.connect_for_each_screen(function(s)
 	 { -- Right widgets
 	    layout = wibox.layout.fixed.horizontal,
 	    spotify_widget,
+	    sprtr,
 	    volume_widget,
+	    sprtr,
 	    battery_widget,
+	    sprtr,
 	    mykeyboardlayout,
 	    wibox.widget.systray(),
 	    mytextclock,
