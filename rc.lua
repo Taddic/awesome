@@ -10,6 +10,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local net_widgets = require("net_widgets")
 
 -- Load Debian menu entries
 require("debian.menu")
@@ -53,6 +54,9 @@ do
    end)
 end
 -- }}}
+
+-- Wireless widget
+net_wireless = net_widgets.wireless({interface="wlp1s0"})
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
@@ -247,6 +251,8 @@ awful.screen.connect_for_each_screen(function(s)
 	    volume_widget,
 	    sprtr,
 	    battery_widget,
+	    sprtr,
+	    net_wireless,
 	    sprtr,
 	    mykeyboardlayout,
 	    wibox.widget.systray(),
