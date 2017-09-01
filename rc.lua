@@ -17,6 +17,9 @@ require("debian.menu")
 -- Load battery widget
 require("battery")
 
+-- Load volume widget
+require("volume")
+
 
 
 -- {{{ Error handling
@@ -232,6 +235,7 @@ awful.screen.connect_for_each_screen(function(s)
 	 s.mytasklist, -- Middle widget
 	 { -- Right widgets
 	    layout = wibox.layout.fixed.horizontal,
+	    volume_widget,
 	    battery_widget,
 	    mykeyboardlayout,
 	    wibox.widget.systray(),
@@ -368,7 +372,17 @@ globalkeys = awful.util.table.join(
       {description = "lua execute prompt", group = "awesome"}),
    -- Menubar
    awful.key({ modkey }, "p", function() menubar.show() end,
-      {description = "show the menubar", group = "launcher"})
+      {description = "show the menubar", group = "launcher"}),
+
+   awful.key({ }, "XF86AudioLowerVolume",
+      function () awful.spawn("amixer -D pulse sset Master 5%-") end,
+      {description = "increase volume", group = "custom"}),
+   awful.key({ }, "XF86AudioRaiseVolume",
+      function () awful.spawn("amixer -D pulse sset Master 5%+") end,
+      {description = "decrease volume", group = "custom"}),
+   awful.key({ }, "XF86AudioMute",
+      function () awful.spawn("amixer -D pulse set Master +1 toggle") end,
+      {description = "mute volume", group = "custom"})
 )
 
 clientkeys = awful.util.table.join(
