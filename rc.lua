@@ -252,6 +252,8 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+   awful.key({ }, "Print", function () awful.util.spawn("ksnapshot") end,
+      {description = "Screen snapshot", group = "user"}),
    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
       {description="show help", group="awesome"}),
    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -261,13 +263,13 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
       {description = "go back", group = "tag"}),
 
-   awful.key({ modkey,           }, "j",
+   awful.key({ modkey,           }, "k",
       function ()
 	 awful.client.focus.byidx( 1)
       end,
       {description = "focus next by index", group = "client"}
    ),
-   awful.key({ modkey,           }, "k",
+   awful.key({ modkey,           }, "j",
       function ()
 	 awful.client.focus.byidx(-1)
       end,
@@ -277,19 +279,19 @@ globalkeys = awful.util.table.join(
       {description = "show main menu", group = "awesome"}),
 
    -- Layout manipulation
-   awful.key({ modkey, "Shift"   }, "j",
+   awful.key({ modkey, "Shift"   }, "k",
       function () awful.client.swap.byidx(  1)    end,
       {description = "swap with next client by index", group = "client"}),
 
-   awful.key({ modkey, "Shift"   }, "k",
+   awful.key({ modkey, "Shift"   }, "j",
       function () awful.client.swap.byidx( -1)    end,
       {description = "swap with previous client by index", group = "client"}),
 
-   awful.key({ modkey, "Control" }, "j",
+   awful.key({ modkey, "Control" }, "k",
       function () awful.screen.focus_relative( 1) end,
       {description = "focus the next screen", group = "screen"}),
 
-   awful.key({ modkey, "Control" }, "k",
+   awful.key({ modkey, "Control" }, "j",
       function () awful.screen.focus_relative(-1) end,
       {description = "focus the previous screen", group = "screen"}),
 
@@ -389,7 +391,7 @@ clientkeys = awful.util.table.join(
       function (c) c:swap(awful.client.getmaster()) end,
       {description = "move to master", group = "client"}),
 
-   awful.key({ modkey,           }, "o",
+   awful.key({ modkey, "Shift"   }, "o",
       function (c) c:move_to_screen()               end,
       {description = "move to screen", group = "client"}),
 
@@ -499,15 +501,16 @@ awful.rules.rules = {
 	   "Arandr",
 	   "Gpick",
 	   "Kruler",
-	   "MessageWin",  -- kalarm.
+	   "MessageWin",
 	   "Sxiv",
 	   "Wpa_gui",
 	   "pinentry",
 	   "veromix",
-	   "xtightvncviewer"},
+	   "xtightvncviewer",
+	   "gimp"},
 
         name = {
-	   "Event Tester",  -- xev.
+	   "Event Tester",
         },
         role = {
 	   "AlarmWindow",  -- Thunderbird's calendar.
@@ -517,12 +520,24 @@ awful.rules.rules = {
 
    -- Add titlebars to normal clients and dialogs
    { rule_any = {type = { "normal", "dialog" }
-		}, properties = { titlebars_enabled = true }
+		}, properties = { titlebars_enabled = false }
    },
 
    -- Set Firefox to always map on the tag named "2" on screen 1.
-   -- { rule = { class = "Firefox" },
-   --   properties = { screen = 1, tag = "2" } },
+   { rule = { class = "Firefox" },
+     properties = { screen = 2, tag = "3" } },
+
+   { rule = { class = "Spotify" },
+     properties = { screen = 1, tag = "1" } },
+
+   { rule = { class = "Chromium-browser" },
+     properties = { screen = 2, tag = "2" } },
+
+   { rule = { class = "discord" },
+     properties = { screen = 3, tag = "2" } },
+
+   { rule = { class = "thunderbird" },
+     properties = { screen = 3, tag = "3" } }
 }
 -- }}}
 
@@ -585,17 +600,14 @@ client.connect_signal(
 				}
 end)
 
--- Enable sloppy focus, so that focus follows mouse.
---client.connect_signal(
---   "mouse::enter", function(c)
---      if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
---      and awful.client.focus.filter(c) then
---	 client.focus = c
---      end
---end)
-
 client.connect_signal(
    "focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal(
    "unfocus", function(c) c.border_color = beautiful.border_normal end)
--- }}}
+
+awful.spawn.easy_async("numlockx on")
+awful.spawn.with_shell("spotify")
+awful.spawn.with_shell("chromium-browser")
+awful.spawn.with_shell("discord")
+awful.spawn.with_shell("thunderbird")
+--awful.spawn.with_shell("./home/jgo107/git/eTodo/_build_default/rel/bin/eTodo")
