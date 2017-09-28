@@ -1,1 +1,0 @@
-awesome-wm-widgets/battery-widget/battery.lua
