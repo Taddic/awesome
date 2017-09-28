@@ -13,3 +13,7 @@ Includes config for
 * Volume widget
 * Volume keyboard shortcuts
 * Wireless network widget
+
+The configuration is sorted into different files for clarity, and also includes
+a "local customization" section which allows me to have most of the config up
+on github and add config that differ for work, home desktop and/or laptop.
