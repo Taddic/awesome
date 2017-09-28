@@ -10,19 +10,18 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-local net_widgets = require("net_widgets")
+local net_widgets = require("widgets/net_widgets")
 
 -- Load Debian menu entries
 require("debian.menu")
 
 -- Load battery widget
-require("battery")
-
+require("widgets/awesome-wm-widgets/battery-widget/battery")
 -- Load spotify widget
-require("spotify")
+require("widgets/awesome-wm-widgets/spotify-widget/spotify")
 
 -- Load volume widget
-require("volume")
+require("widgets/awesome-wm-widgets/volume-widget/volume")
 
 
 -- Widget seperator
