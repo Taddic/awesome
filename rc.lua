@@ -29,6 +29,7 @@ require("widgets.awesome-wm-widgets.spotify-widget.spotify")
 -- Load volume widget
 require("widgets.awesome-wm-widgets.volume-widget.volume")
 
+require("autostart")
 
 -- Widget seperator
 sprtr = wibox.widget.textbox()
@@ -650,10 +651,6 @@ client.connect_signal(
    "focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal(
    "unfocus", function(c) c.border_color = beautiful.border_normal end)
-
-awful.spawn.easy_async("numlockx on")
-awful.spawn.with_shell("spotify")
-awful.spawn.with_shell("chromium-browser")
-awful.spawn.with_shell("discord")
-awful.spawn.with_shell("thunderbird")
 --awful.spawn.with_shell("./home/jgo107/git/eTodo/_build_default/rel/bin/eTodo")
+
+autostart.applications()
