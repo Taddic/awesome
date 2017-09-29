@@ -2,26 +2,32 @@
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
+
 -- Widget and layout library
 local wibox = require("wibox")
+
 -- Theme handling library
 local beautiful = require("beautiful")
+
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
-local net_widgets = require("widgets/net_widgets")
 
 -- Load Debian menu entries
 require("debian.menu")
 
 -- Load battery widget
-require("widgets/awesome-wm-widgets/battery-widget/battery")
+require("widgets.awesome-wm-widgets.battery-widget.battery")
+
+-- Network widget
+local net_widgets = require("widgets/net_widgets")
+
 -- Load spotify widget
-require("widgets/awesome-wm-widgets/spotify-widget/spotify")
+require("widgets.awesome-wm-widgets.spotify-widget.spotify")
 
 -- Load volume widget
-require("widgets/awesome-wm-widgets/volume-widget/volume")
+require("widgets.awesome-wm-widgets.volume-widget.volume")
 
 
 -- Widget seperator
@@ -55,7 +61,7 @@ end
 -- }}}
 
 -- Wireless widget
-net_wireless = net_widgets.wireless({interface="wlp1s0"})
+net_wireless = net_widgets.wireless({interface="wlo1"})
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
