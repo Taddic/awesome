@@ -1,5 +1,4 @@
 -- Standard awesome library
-local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 
@@ -31,9 +30,7 @@ require("widgets.awesome-wm-widgets.volume-widget.volume")
 
 local autostart = require("autostart")
 
--- Widget seperator
-sprtr = wibox.widget.textbox()
-sprtr:set_text(" : ")
+local myScreen = require("myScreen")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -140,14 +137,6 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 -- Menubar configuration
 -- Set the terminal for applications that require it
 menubar.utils.terminal = terminal
--- }}}
-
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
--- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
@@ -192,82 +181,14 @@ local tasklist_buttons = awful.util.table.join(
 	 awful.client.focus.byidx(-1)
 end))
 
-local function set_wallpaper(s)
-   -- Wallpaper
-   if beautiful.wallpaper then
-      local wallpaper = beautiful.wallpaper
-      -- If wallpaper is a function, call it with the screen
-      if type(wallpaper) == "function" then
-	 wallpaper = wallpaper(s)
-      end
-      gears.wallpaper.maximized(wallpaper, s, true)
-   end
-end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+screen.connect_signal("property::geometry", myScreen.set_wallpaper)
 
-awful.screen.connect_for_each_screen(function(s)
-      -- Wallpaper
-      set_wallpaper(s)
-
-      -- Each screen has its own tag table.
-      awful.tag(
-	 { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
-	 s, awful.layout.layouts[1])
-
-      -- Create a promptbox for each screen
-      s.mypromptbox = awful.widget.prompt()
-      -- Create an imagebox widget which will contains an
-      -- icon indicating which layout we're using.
-      -- We need one layoutbox per screen.
-      s.mylayoutbox = awful.widget.layoutbox(s)
-      s.mylayoutbox:buttons(
-	 awful.util.table.join(
-	    awful.button({ }, 1, function () awful.layout.inc( 1) end),
-	    awful.button({ }, 3, function () awful.layout.inc(-1) end),
-	    awful.button({ }, 4, function () awful.layout.inc( 1) end),
-	    awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-      -- Create a taglist widget
-      s.mytaglist = awful.widget.taglist(
-	 s, awful.widget.taglist.filter.all, taglist_buttons)
-
-      -- Create a tasklist widget
-      s.mytasklist = awful.widget.tasklist(
-	 s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
-
-      -- Create the wibox
-      s.mywibox = awful.wibar({ position = "top", screen = s })
-
-      -- Add widgets to the wibox
-      s.mywibox:setup {
-
-	 layout = wibox.layout.align.horizontal,
-	 { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
-	 },
-	 s.mytasklist, -- Middle widget
-	 { -- Right widgets
-	    layout = wibox.layout.fixed.horizontal,
-	    spotify_widget,
-	    sprtr,
-	    volume_widget,
-	    sprtr,
-	    battery_widget,
-	    sprtr,
-	    net_wireless,
-	    sprtr,
-	    mykeyboardlayout,
-	    wibox.widget.systray(),
-	    mytextclock,
-	    s.mylayoutbox,
-	 },
-      }
-end)
--- }}}
+myScreen.setup(wibox, {spotify_widget,
+		   volume_widget,
+		   battery_widget,
+		   net_wireless})
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
