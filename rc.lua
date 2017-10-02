@@ -29,7 +29,7 @@ require("widgets.awesome-wm-widgets.spotify-widget.spotify")
 -- Load volume widget
 require("widgets.awesome-wm-widgets.volume-widget.volume")
 
-require("autostart")
+local autostart = require("autostart")
 
 -- Widget seperator
 sprtr = wibox.widget.textbox()
