@@ -186,9 +186,9 @@ end))
 screen.connect_signal("property::geometry", myScreen.set_wallpaper)
 
 myScreen.setup(wibox, {spotify_widget,
-		   volume_widget,
-		   battery_widget,
-		   net_wireless})
+		       volume_widget,
+		       battery_widget,
+		       net_wireless})
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
@@ -574,4 +574,4 @@ client.connect_signal(
    "unfocus", function(c) c.border_color = beautiful.border_normal end)
 --awful.spawn.with_shell("./home/jgo107/git/eTodo/_build_default/rel/bin/eTodo")
 
-autostart.applications()
+autostart.applications({"spotify", "chromium-browser", "discord", "thunderbird"})
