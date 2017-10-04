@@ -5,6 +5,9 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 local var = {}
 
+-- Usually, Mod4 is the key with a logo between Control and Alt.
+local modkey = "Mod4"
+
 local function mouse()
    root.buttons(awful.util.table.join(
 		   awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -44,10 +47,12 @@ local function keyboard()
 	 {description = "swap with next client by index", group = "client"}),
       awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx( -1)    end,
 	 {description = "swap with previous client by index", group = "client"}),
-      awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative( 1) end,
+
+      awful.key({ modkey, "Shift" }, "o", function () awful.screen.focus_relative(-1) end,
 	 {description = "focus the next screen", group = "screen"}),
-      awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative(-1) end,
+      awful.key({ modkey, "Shift" }, "p", function () awful.screen.focus_relative(1) end,
 	 {description = "focus the previous screen", group = "screen"}),
+
       awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
 	 {description = "jump to urgent client", group = "client"}),
       awful.key({ modkey,           }, "Tab",
@@ -84,7 +89,7 @@ local function keyboard()
       awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
 	 {description = "select previous", group = "layout"}),
 
-      awful.key({ modkey, "Control" }, "n",
+      awful.key({ modkey, "Shift" }, "n",
 	 function ()
 	    local c = awful.client.restore()
 	    -- Focus restored client
@@ -189,46 +194,47 @@ local function keyboard()
    root.keys(globalkeys)
 end
 
---local clientkeys = awful.util.table.join(
---   awful.key({ modkey,           }, "f",
---      function (c)
---	 c.fullscreen = not c.fullscreen
---	 c:raise()
---      end,
---      {description = "toggle fullscreen", group = "client"}),
---   awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
---      {description = "close", group = "client"}),
---   awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
---      {description = "toggle floating", group = "client"}),
---   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
---      {description = "move to master", group = "client"}),
---   awful.key({ modkey, "Shift"   }, "o",      function (c) c:move_to_screen()               end,
---      {description = "move to screen", group = "client"}),
---   awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
---      {description = "toggle keep on top", group = "client"}),
---   awful.key({ modkey,           }, "n",
---      function (c)
---	 -- The client currently has the input focus, so it cannot be
---	 -- minimized, since minimized clients can't have the focus.
---	 c.minimized = true
---      end ,
---      {description = "minimize", group = "client"}),
---   awful.key({ modkey,           }, "m",
---      function (c)
---	 c.maximized = not c.maximized
---	 c:raise()
---      end ,
---      {description = "maximize", group = "client"}))
+local clientkeys = awful.util.table.join(
+   awful.key({ modkey,           }, "f",
+      function (c)
+	 c.fullscreen = not c.fullscreen
+	 c:raise()
+      end,
+      {description = "toggle fullscreen", group = "client"}),
+   awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+     {description = "close", group = "client"}),
+   awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+      {description = "toggle floating", group = "client"}),
+   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+     {description = "move to master", group = "client"}),
+  awful.key({ modkey, "Shift"   }, "u",      function (c) c:move_to_screen()               end,
+      {description = "move to screen", group = "client"}),
+   awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
+     {description = "toggle keep on top", group = "client"}),
+   awful.key({ modkey,           }, "n",
+      function (c)
+	 -- The client currently has the input focus, so it cannot be
+	 -- minimized, since minimized clients can't have the focus.
+	 c.minimized = true
+      end ,
+      {description = "minimize", group = "client"}),
+   awful.key({ modkey,           }, "m",
+      function (c)
+	 c.maximized = not c.maximized
+c:raise()
+      end ,
+      {description = "maximize", group = "client"}))
 
---local clientbuttons = awful.util.table.join(
---   awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
---   awful.button({ modkey }, 1, awful.mouse.client.move),
---   awful.button({ modkey }, 3, awful.mouse.client.resize))
+local clientbuttons = awful.util.table.join(
+   awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
+   awful.button({ modkey }, 1, awful.mouse.client.move),
+   awful.button({ modkey }, 3, awful.mouse.client.resize))
 
+var.modkey = modkey
 var.mouse = mouse
 var.keyboard = keyboard
---var.clientkeys = clientkeys
---var.clientbuttons = clientbuttons
+var.clientkeys = clientkeys
+var.clientbuttons = clientbuttons
 
 
 return var
