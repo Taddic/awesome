@@ -81,7 +81,7 @@ theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/defau
 if gears.file_readable("~/.config/awesome/wallpaper/background.png") then
    theme.wallpaper = "~/.config/awesome/wallpaper/background.png"
 else
-   theme.wallpaper = "~/.config/awesome/themes/default/wallpaper/background.png"
+   theme.wallpaper = "~/.config/awesome/themes/default/background.png"
 end
 
 -- You can use your own layout icons like this:
