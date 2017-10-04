@@ -54,6 +54,10 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("~/.config/awesome/themes/default/theme.lua")
+local user_wallpaper = awful.util.get_configuration_dir() .. "wallpaper/background.png"
+if gears.filesystem.file_readable(user_wallpaper) then
+   beautiful.wallpaper = user_wallpaper
+end
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
