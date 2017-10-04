@@ -1,6 +1,8 @@
 # awesome
 My AwesomeWM config
 
+Requirements: Awesome 4.2. Not guaranteed to work with previous versions.
+
 Uses files from:
 https://github.com/streetturtle/awesome-wm-widgets
 https://github.com/pltanton/net_widgets
