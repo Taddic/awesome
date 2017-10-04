@@ -227,7 +227,7 @@ end
 
 var.mouse = mouse
 var.keyboard = keyboard
---var.clientkeys = lientkeys
+--var.clientkeys = clientkeys
 --var.clientbuttons = clientbuttons
 
 
