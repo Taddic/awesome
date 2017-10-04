@@ -23,6 +23,9 @@ require("widgets.awesome-wm-widgets.volume-widget.volume")
 -- Load battery widget
 require("widgets.awesome-wm-widgets.battery-widget.battery")
 
+-- Load network widget
+require("widgets.network.pech")
+
 local myScreen = require("myScreen")
 local keybindings = require("keybindings")
 local autostart = require("autostart")
@@ -112,9 +115,19 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", myScreen.set_wallpaper)
 
+-- create a network menu widget
+function mynetworkmenu()
+   networkmenu = awful.menu({	items = netmgr.generate_network_menu()	  })
+   return networkmenu
+end
+mynetworklauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+					    menu = mynetworkmenu()})
+
+
 myScreen.setup(wibox, {spotify_widget,
 		       volume_widget,
-		       battery_widget})
+		       battery_widget,
+		       mynetworklauncher})
 
 keybindings.mouse()
 keybindings.keyboard()
