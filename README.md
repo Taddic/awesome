@@ -9,6 +9,7 @@ https://github.com/pltanton/net_widgets
 
 Includes config for
 * General Awesome WM config I prefer
+* Wallpaper located in wallpaper/background.png (takes effect when this directory and file is created)
 * Battery widget
 * Spotify widget
 * Spotify multimedia buttons shortcuts
