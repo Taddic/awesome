@@ -190,7 +190,7 @@ awful.rules.rules = {
     { rule = { class = "discord" },
       properties = { screen = 3, tag = "2" } },
 
-    { rule = { class = "thunderbird" },
+    { rule = { class = "Thunderbird" },
       properties = { screen = 3, tag = "3" } }
 }
 -- }}}
