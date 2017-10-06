@@ -20,9 +20,6 @@ local function set_wallpaper(s)
 end
 
 local function setup(wibox, widgets)
-   -- Keyboard map indicator and switcher
-   mykeyboardlayout = awful.widget.keyboardlayout()
-
    -- {{{ Wibar
    -- Create a textclock widget
    mytextclock = wibox.widget.textclock()
@@ -120,7 +117,6 @@ local function setup(wibox, widgets)
 	    table.insert(right_widgets, w)
 	    table.insert(right_widgets, separator)
 	 end
-	 table.insert(right_widgets, mykeyboardlayout)
 	 table.insert(right_widgets, wibox.widget.systray())
 	 table.insert(right_widgets, mytextclock)
 	 table.insert(right_widgets, s.mylayoutbox)
