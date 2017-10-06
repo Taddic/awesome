@@ -132,8 +132,12 @@ keybindings.keyboard()
 
 
 
-rules.setup()
-
+rules.setup({
+      {{class = "Firefox"},          {screen = 2, tag = "3"}},
+      {{class = "Spotify"},          {screen = 1, tag = "1"}},
+      {{class = "Chromium-browser"}, {screen = 2, tag = "2"}},
+      {{class = "discord"},          {screen = 3, tag = "2"}},
+      {{class = "Thunderbird"},      {screen = 3, tag = "3"}}})
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
