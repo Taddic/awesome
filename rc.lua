@@ -28,6 +28,7 @@ require("widgets.network.pech")
 
 local myScreen = require("myScreen")
 local keybindings = require("keybindings")
+local rules = require("rules")
 local autostart = require("autostart")
 
 -- {{{ Error handling
@@ -53,7 +54,6 @@ do
         in_error = false
     end)
 end
--- }}}
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
@@ -87,9 +87,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
 }
--- }}}
 
--- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
    { "hotkeys", function() return false, hotkeys_popup.show_help end},
@@ -132,68 +130,10 @@ myScreen.setup(wibox, {spotify_widget,
 keybindings.mouse()
 keybindings.keyboard()
 
--- {{{ Rules
--- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = {
-    -- All clients will match this rule.
-    { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     raise = true,
-                     keys = keybindings.clientkeys,
-                     buttons = keybindings.clientbuttons,
-                     screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
-     }
-    },
 
-    -- Floating clients.
-    { rule_any = {
-        instance = {
-          "DTA",  -- Firefox addon DownThemAll.
-          "copyq",  -- Includes session name in class.
-        },
-        class = {
-          "Arandr",
-          "Gpick",
-          "Kruler",
-          "MessageWin",  -- kalarm.
-          "Sxiv",
-          "Wpa_gui",
-          "pinentry",
-          "veromix",
-          "xtightvncviewer"},
 
-        name = {
-          "Event Tester",  -- xev.
-        },
-        role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-        }
-      }, properties = { floating = true }},
+rules.setup()
 
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
-    },
-    { rule = { class = "Firefox" },
-      properties = { screen = 2, tag = "3" } },
-
-    { rule = { class = "Spotify" },
-      properties = { screen = 1, tag = "1" } },
-
-    { rule = { class = "Chromium-browser" },
-      properties = { screen = 2, tag = "2" } },
-
-    { rule = { class = "discord" },
-      properties = { screen = 3, tag = "2" } },
-
-    { rule = { class = "Thunderbird" },
-      properties = { screen = 3, tag = "3" } }
-}
--- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
