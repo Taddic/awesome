@@ -1,4 +1,6 @@
--- Standard awesome library
+--------------------------------------------------------------------------------
+-- Standard awesome library                                                   --
+--------------------------------------------------------------------------------
 local awful     = require("awful")
 local beautiful = require("beautiful") -- Theme handling library
 local gears     = require("gears")
@@ -6,13 +8,14 @@ local menubar   = require("menubar")
 local naughty   = require("naughty")   -- Notification library
 local wibox     = require("wibox")
 require("awful.autofocus")
-require("debian.menu")                                             -- Load Debian menu entries
+require("debian.menu")                 -- Load Debian menu entries
 
--- Local variables
+--------------------------------------------------------------------------------
+-- Local variables/functions                                                  --
+--------------------------------------------------------------------------------
 local terminal = "x-terminal-emulator"
 local editor = os.getenv("EDITOR") or "editor"
 local editor_cmd = terminal .. " -e " .. editor
-local var  = {}
 
 local myawesomemenu = {
    { "hotkeys",     function() return false, hotkeys_popup.show_help end},
@@ -22,7 +25,6 @@ local myawesomemenu = {
    { "quit",        function() awesome.quit() end}}
 
 local function error_handling()
-   -- {{{ Error handling
    -- Check if awesome encountered an error during startup and fell back to
    -- another config (This code will only ever execute for the fallback config)
    if awesome.startup_errors then
@@ -65,10 +67,18 @@ local function layouts()
    }
 end
 
-local function menu()
-   menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+local function theme()
+   -- Themes define colours, icons, font and wallpapers.
+   beautiful.init("~/.config/awesome/themes/default/theme.lua")
+   local user_wallpaper = awful.util.get_configuration_dir() .. "wallpaper/background.png"
+   if gears.filesystem.file_readable(user_wallpaper) then
+      beautiful.wallpaper = user_wallpaper
+   end
 end
 
+--------------------------------------------------------------------------------
+-- Exported variables/functions                                               --
+--------------------------------------------------------------------------------
 local function mymainmenu()
    return awful.menu({
 	 items = {
@@ -89,20 +99,11 @@ local function set_wallpaper(s)
    end
 end
 
-local function theme()
-   -- Themes define colours, icons, font and wallpapers.
-   beautiful.init("~/.config/awesome/themes/default/theme.lua")
-   local user_wallpaper = awful.util.get_configuration_dir() .. "wallpaper/background.png"
-   if gears.filesystem.file_readable(user_wallpaper) then
-      beautiful.wallpaper = user_wallpaper
-   end
-end
-
 local function setup(widgets)
    error_handling()
    theme()
    layouts()
-   menu()
+   menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 
    -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
    screen.connect_signal("property::geometry", set_wallpaper)
@@ -276,12 +277,7 @@ local function setup(widgets)
    client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 end
 
-var.error_handling = error_handling
-var.layouts        = layouts
-var.menu           = menu
-var.mymainmenu     = mymainmenu
-var.setup          = setup
-var.set_wallpaper  = set_wallpaper
-var.terminal       = terminal
-var.theme          = theme
-return var
+return {mymainmenu     = mymainmenu,
+	setup          = setup,
+	set_wallpaper  = set_wallpaper,
+	terminal       = terminal}

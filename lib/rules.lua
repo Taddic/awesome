@@ -1,8 +1,9 @@
+--------------------------------------------------------------------------------
+-- Standard awesome library                                                   --
+--------------------------------------------------------------------------------
 local awful       = require("awful")
 local beautiful   = require("beautiful")
 local keybindings = require("lib.keybindings")
-
-local var = {}
 
 local function setup(rules)
    local function mkRule(new_rule,new_prop)
@@ -51,6 +52,6 @@ local function setup(rules)
       insertRule(new_rule)
    end
 end
-var.setup = setup
 
-return var
+
+return {setup = setup}

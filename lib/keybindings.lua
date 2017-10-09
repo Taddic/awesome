@@ -1,15 +1,21 @@
+--------------------------------------------------------------------------------
+-- Standard awesome library                                                   --
+--------------------------------------------------------------------------------
 local awful                = require("awful")
 local hotkeys_popup        = require("awful.hotkeys_popup").widget
 local beautiful            = require("beautiful")
 local gears                = require("gears")
 local menubar              = require("menubar")
+
+--------------------------------------------------------------------------------
+-- User defined libraries                                                     --
+--------------------------------------------------------------------------------
 local keybindings_callback = require("lib.keybindings_callback")
 local standard_cfg         = require("lib.standard_cfg")
-local var = {}
 
--- Usually, Mod4 is the key with a logo between Control and Alt.
-local modkey = "Mod4"
-local altkey = "Mod1"
+
+local modkey = "Mod4" -- Usually, the key with a logo between Control and Alt.
+local altkey = "Mod1" -- The Alt key
 
 local function mkKeybinding(modifiers, key, command, descript, key_group)
    return awful.key(modifiers, key, command, {description = descript, group = key_group})
@@ -34,8 +40,7 @@ local clientbuttons = gears.table.join(
    awful.button({ modkey }, 1, awful.mouse.client.move),
    awful.button({ modkey }, 3, awful.mouse.client.resize))
 
-local clientkeys = mkKeys(
-   {
+local clientkeys = mkKeys({
       {{modkey,          }, "f",      keybindings_callback.toggle_fullscreen,            "toggle fullscreen",  "Client"},
       {{modkey, "Shift"  }, "c",      function (c) c:kill()              end,            "close",              "Client"},
       {{modkey, "Control"}, "space",  awful.client.floating.toggle          ,            "toggle floating",    "Client"},
@@ -43,17 +48,14 @@ local clientkeys = mkKeys(
       {{modkey, "Shift"  }, "u",      function (c) c:move_to_screen()               end, "move to screen",     "Client"},
       {{modkey,          }, "t",      function (c) c.ontop = not c.ontop            end, "toggle keep on top", "Client"},
       {{modkey,          }, "n",      keybindings_callback.minimize,                     "minimize",           "Client"},
-      {{modkey,          }, "m",      keybindings_callback.maximize,                     "maximize",           "Client"}
-   }
-)
+      {{modkey,          }, "m",      keybindings_callback.maximize,                     "maximize",           "Client"}})
 
 local function mouse()
    local mymainmenu = standard_cfg.mymainmenu()
    root.buttons(gears.table.join(
 		   awful.button({ }, 3, function () mymainmenu:toggle() end),
 		   awful.button({ }, 4, awful.tag.viewnext),
-		   awful.button({ }, 5, awful.tag.viewprev)
-   ))
+		   awful.button({ }, 5, awful.tag.viewprev)))
 end
 
 local function keyboard()
@@ -102,8 +104,7 @@ local function keyboard()
 	 {{                 }, "XF86AudioNext",        function () awful.spawn("sp next") end,                              "Spotify next",                          "Media keys"     },
 	 -- Brightness keys
 	 {{                 }, "XF86MonBrightnessUp",  function () awful.spawn("light -A 5") end,                           "Increase brightness",                   "Brightness keys"},
-	 {{                 }, "XF86MonBrightnessDown",function () awful.spawn("light -U 5") end,                           "Decrease brightness",                   "Brightness keys"}
-   }
+	 {{                 }, "XF86MonBrightnessDown",function () awful.spawn("light -U 5") end,                           "Decrease brightness",                   "Brightness keys"}}
 
    -- Bind all key numbers to tags.
    -- Be careful: we use keycodes to make it works on any keyboard layout.
@@ -124,9 +125,8 @@ local function setup()
    keyboard()
 end
 
-var.clientbuttons = clientbuttons
-var.clientkeys    = clientkeys
-var.modkey        = modkey
-var.setup         = setup
 
-return var
+return {clientbuttons = clientbuttons,
+	clientkeys    = clientkeys,
+	modkey        = modkey,
+	setup         = setup}

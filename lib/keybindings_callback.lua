@@ -1,6 +1,11 @@
+--------------------------------------------------------------------------------
+-- Standard awesome library                                                   --
+--------------------------------------------------------------------------------
 local awful = require("awful")
-local var = {}
 
+--------------------------------------------------------------------------------
+-- Exported functions                                                         --
+--------------------------------------------------------------------------------
 local function alt_tab() awful.client.focus.history.previous()
    if client.focus then
       client.focus:raise()
@@ -68,7 +73,6 @@ local function toggle_client_on_tag(i)
    end
 end
 
-
 local function toggle_fullscreen(c)
    c.fullscreen = not c.fullscreen
    c:raise()
@@ -84,15 +88,13 @@ local function toggle_tag(i)
    end
 end
 
-var.alt_tab              = alt_tab
-var.focus_tag            = focus_tag
-var.lua_exec_prompt      = lua_exec_prompt
-var.maximize             = maximize
-var.minimize             = minimize
-var.move_client_to_tag   = move_client_to_tag
-var.restore_minimized    = restore_minimized
-var.toggle_client_on_tag = toggle_client_on_tag
-var.toggle_fullscreen    = toggle_fullscreen
-var.toggle_tag           = toggle_tag
-
-return var
+return {alt_tab              = alt_tab,
+	focus_tag            = focus_tag,
+	lua_exec_prompt      = lua_exec_prompt,
+	maximize             = maximize,
+	minimize             = minimize,
+	move_client_to_tag   = move_client_to_tag,
+	restore_minimized    = restore_minimized,
+	toggle_client_on_tag = toggle_client_on_tag,
+	toggle_fullscreen    = toggle_fullscreen,
+	toggle_tag           = toggle_tag}
