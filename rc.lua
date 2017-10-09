@@ -23,19 +23,27 @@ local autostart    = require("autostart")
 standard_cfg.error_handling()
 standard_cfg.theme()
 standard_cfg.layouts()
-standard_cfg.menu()
 
+local myawesomemenu = {
+   { "hotkeys",     function() return false, hotkeys_popup.show_help end},
+   { "manual",      standard_cfg.terminal .. " -e man awesome" },
+   { "edit config", standard_cfg.editor_cmd .. " " .. awesome.conffile },
+   { "restart",     awesome.restart },
+   { "quit",        function() awesome.quit() end}}
+local mymainmenu = awful.menu({
+      items = {
+	 {"awesome",       myawesomemenu, beautiful.awesome_icon},
+	 {"Debian",        debian.menu.Debian_menu.Debian},
+	 {"open terminal", standard_cfg.terminal}}})
+
+standard_cfg.menu()
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", myScreen.set_wallpaper)
 
--- create a network menu widget
-function mynetworkmenu()
-   networkmenu = awful.menu({	items = netmgr.generate_network_menu()	  })
-   return networkmenu
-end
-mynetworklauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-					    menu = mynetworkmenu()})
+mynetworklauncher = awful.widget.launcher(
+   {image = beautiful.awesome_icon,
+    menu = awful.menu({items = netmgr.generate_network_menu()})})
 
 myScreen.setup(wibox, {spotify_widget,
 		       brightness_widget,
@@ -43,8 +51,8 @@ myScreen.setup(wibox, {spotify_widget,
 		       battery_widget,
 		       mynetworklauncher})
 
-keybindings.mouse(standard_cfg.mymainmenu)
-keybindings.keyboard(standard_cfg.mymainmenu, standard_cfg.terminal)
+keybindings.mouse(mymainmenu)
+keybindings.keyboard(mymainmenu, standard_cfg.terminal)
 
 rules.setup({
       {{class = "Chromium-browser"}, {screen = 2, tag = "2"}},
@@ -107,7 +115,7 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
-autostart.applications({"chromium-browser",
-			"discord",
-			"spotify",
-			"thunderbird"})
+--autostart.applications({"chromium-browser",
+--			"discord",
+--			"spotify",
+--			"thunderbird"})

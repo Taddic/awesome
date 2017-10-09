@@ -4,21 +4,10 @@ local gears     = require("gears")     -- Standard awesome library
 local menubar   = require("menubar")
 local naughty   = require("naughty")   -- Notification library
 
-local var  = {}
 local terminal = "x-terminal-emulator"
-editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
-local myawesomemenu = {
-   { "hotkeys",     function() return false, hotkeys_popup.show_help end},
-   { "manual",      terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart",     awesome.restart },
-   { "quit",        function() awesome.quit() end}}
-local mymainmenu = awful.menu({
-      items = {
-	 {"awesome",       myawesomemenu, beautiful.awesome_icon},
-	 {"Debian",        debian.menu.Debian_menu.Debian},
-	 {"open terminal", terminal}}})
+local editor = os.getenv("EDITOR") or "editor"
+local editor_cmd = terminal .. " -e " .. editor
+local var  = {}
 
 local function error_handling()
    -- {{{ Error handling
@@ -78,15 +67,13 @@ local function layouts()
 end
 
 local function menu()
-   -- Menubar configuration
    menubar.utils.terminal = terminal -- Set the terminal for applications that require it
-   -- }}}
 end
 
+var.editor_cmd     = editor_cmd
 var.error_handling = error_handling
 var.layouts        = layouts
 var.menu           = menu
-var.mymainmenu     = mymainmenu
 var.terminal       = terminal
 var.theme          = theme
 return var
