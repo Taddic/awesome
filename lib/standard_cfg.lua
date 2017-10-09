@@ -19,9 +19,6 @@ local mymainmenu = awful.menu({
 	 {"awesome",       myawesomemenu, beautiful.awesome_icon},
 	 {"Debian",        debian.menu.Debian_menu.Debian},
 	 {"open terminal", terminal}}})
-local mylauncher = awful.widget.launcher(
-   {image = beautiful.awesome_icon,
-    menu  = mymainmenu})
 
 local function error_handling()
    -- {{{ Error handling
@@ -89,7 +86,6 @@ end
 var.error_handling = error_handling
 var.layouts        = layouts
 var.menu           = menu
-var.mylauncher     = mylauncher
 var.mymainmenu     = mymainmenu
 var.terminal       = terminal
 var.theme          = theme

@@ -41,7 +41,7 @@ myScreen.setup(wibox, {spotify_widget,
 		       brightness_widget,
 		       volume_widget,
 		       battery_widget,
-		       mynetworklauncher}, standard_cfg.mylauncher)
+		       mynetworklauncher})
 
 keybindings.mouse(standard_cfg.mymainmenu)
 keybindings.keyboard(standard_cfg.mymainmenu, standard_cfg.terminal)

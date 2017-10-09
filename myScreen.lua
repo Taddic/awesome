@@ -15,7 +15,7 @@ local function set_wallpaper(s)
     end
 end
 
-local function setup(wibox, widgets, mylauncher)
+local function setup(wibox, widgets)
    -- {{{ Wibar
    -- Create a textclock widget
    mytextclock = wibox.widget.textclock()
@@ -122,7 +122,6 @@ local function setup(wibox, widgets, mylauncher)
 	    layout = wibox.layout.align.horizontal,
 	    { -- Left widgets
 	       layout = wibox.layout.fixed.horizontal,
-	       mylauncher,
 	       s.mytaglist,
 	       s.mypromptbox
 	    },
