@@ -1,28 +1,28 @@
-local awful         = require("awful")     -- Standard awesome library
+-- Standard awesome library
+local awful         = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local beautiful     = require("beautiful") -- Theme handling library
-local gears         = require("gears")     -- Standard awesome library
-local naughty       = require("naughty")   -- Notification library
-local wibox         = require("wibox")     -- Widget and layout library
-
+local gears         = require("gears")
+local wibox         = require("wibox")
 require("awful.autofocus")
-
 require("debian.menu")                                             -- Load Debian menu entries
-require("widgets.awesome-wm-widgets.spotify-widget.spotify")       -- Load spotify widget
-require("widgets.awesome-wm-widgets.brightness-widget.brightness") -- Load brightness widget
-require("widgets.awesome-wm-widgets.volume-widget.volume")         -- Load volume widget
 require("widgets.awesome-wm-widgets.battery-widget.battery")       -- Load battery widget
+require("widgets.awesome-wm-widgets.brightness-widget.brightness") -- Load brightness widget
+require("widgets.awesome-wm-widgets.spotify-widget.spotify")       -- Load spotify widget
+require("widgets.awesome-wm-widgets.volume-widget.volume")         -- Load volume widget
 require("widgets.network.pech")                                    -- Load network widget
 
-local standard_cfg = require("lib.standard_cfg")
-local myScreen     = require("myScreen")
-local keybindings  = require("keybindings")
-local rules        = require("rules")
+-- User defined libraries
 local autostart    = require("autostart")
+local keybindings  = require("keybindings")
+local myScreen     = require("myScreen")
+local rules        = require("rules")
+local standard_cfg = require("lib.standard_cfg")
 
 standard_cfg.error_handling()
 standard_cfg.theme()
 standard_cfg.layouts()
+
 
 local myawesomemenu = {
    { "hotkeys",     function() return false, hotkeys_popup.show_help end},
@@ -52,7 +52,7 @@ myScreen.setup(wibox, {spotify_widget,
 		       mynetworklauncher})
 
 keybindings.mouse(mymainmenu)
-keybindings.keyboard(mymainmenu, standard_cfg.terminal)
+keybindings.keyboard(mymainmenu)
 
 rules.setup({
       {{class = "Chromium-browser"}, {screen = 2, tag = "2"}},

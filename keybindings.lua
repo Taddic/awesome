@@ -1,8 +1,10 @@
 local awful                = require("awful")
+local hotkeys_popup        = require("awful.hotkeys_popup").widget
+local beautiful            = require("beautiful")
 local gears                = require("gears")
 local menubar              = require("menubar")
-local hotkeys_popup        = require("awful.hotkeys_popup").widget
 local keybindings_callback = require("lib.keybindings_callback")
+local standard_cfg         = require("lib.standard_cfg")
 local var = {}
 
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -35,7 +37,7 @@ local function mouse(mymainmenu)
    ))
 end
 
-local function keyboard(mymainmenu, terminal)
+local function keyboard(mymainmenu)
    keysToCreate =
       {
 	 {{modkey           }, "s",                    hotkeys_popup.show_help,                                             "show help",                             "Awesome"        },
@@ -53,7 +55,7 @@ local function keyboard(mymainmenu, terminal)
 	 {{modkey           }, "u",                    awful.client.urgent.jumpto,                                          "jump to urgent client",                 "Client"         },
 	 {{altkey           }, "Tab",                  keybindings_callback.alt_tab,                                        "go back",                               "Client"         },
 	 -- Standard program
-	 {{modkey           }, "Return",               function () awful.spawn(terminal) end,                               "open a terminal",                       "Launcher"       },
+	 {{modkey           }, "Return",               function () awful.spawn(standard_cfg.terminal) end,                  "open a terminal",                       "Launcher"       },
 	 {{modkey, "Control"}, "r",                    awesome.restart,                                                     "reload awesome",                        "Awesome"        },
 	 {{modkey, "Shift"  }, "q",                    awesome.quit,                                                        "quit awesome",                          "Awesome"        },
 	 {{modkey,          }, "l",                    function () awful.tag.incmwfact( 0.05)          end,                 "increase master width factor",          "Layout"         },

@@ -1,9 +1,11 @@
-local awful     = require("awful")     -- Standard awesome library
+-- Standard awesome library
+local awful     = require("awful")
 local beautiful = require("beautiful") -- Theme handling library
-local gears     = require("gears")     -- Standard awesome library
+local gears     = require("gears")
 local menubar   = require("menubar")
 local naughty   = require("naughty")   -- Notification library
 
+-- Local variables
 local terminal = "x-terminal-emulator"
 local editor = os.getenv("EDITOR") or "editor"
 local editor_cmd = terminal .. " -e " .. editor
