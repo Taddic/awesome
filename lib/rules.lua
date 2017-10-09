@@ -1,6 +1,6 @@
-local awful = require("awful")
-local beautiful = require("beautiful")
-local keybindings = require("keybindings")
+local awful       = require("awful")
+local beautiful   = require("beautiful")
+local keybindings = require("lib.keybindings")
 
 local var = {}
 
