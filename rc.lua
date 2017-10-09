@@ -17,6 +17,9 @@ require("debian.menu")
 -- Load spotify widget
 require("widgets.awesome-wm-widgets.spotify-widget.spotify")
 
+-- Load battery widget
+require("widgets.awesome-wm-widgets.brightness-widget.brightness")
+
 -- Load volume widget
 require("widgets.awesome-wm-widgets.volume-widget.volume")
 
@@ -123,6 +126,7 @@ mynetworklauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 
 myScreen.setup(wibox, {spotify_widget,
+		       brightness_widget,
 		       volume_widget,
 		       battery_widget,
 		       mynetworklauncher})

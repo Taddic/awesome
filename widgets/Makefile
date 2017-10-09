@@ -5,6 +5,9 @@ deps:
 	chmod 755 spotify-script/sp
 	sudo cp spotify-script/sp /usr/local/bin/
 	rm -rf spotify-script
+	-git clone https://github.com/haikarainen/light.git
+	cd ./light && sudo make && sudo make install
+	rm -rf light/
 
 clean:
 	-rm -rf awesome-wm-widgets
