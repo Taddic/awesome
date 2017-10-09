@@ -1,10 +1,6 @@
--- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
-
--- Theme handling library
-local beautiful = require("beautiful")
-
+local awful     = require("awful")
+local beautiful = require("beautiful") -- Theme handling library
+local gears     = require("gears")
 local var = {}
 
 local function set_wallpaper(s)
@@ -19,7 +15,7 @@ local function set_wallpaper(s)
     end
 end
 
-local function setup(wibox, widgets)
+local function setup(wibox, widgets, mylauncher)
    -- {{{ Wibar
    -- Create a textclock widget
    mytextclock = wibox.widget.textclock()

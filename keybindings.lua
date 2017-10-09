@@ -1,10 +1,8 @@
--- Standard awesome library
-local awful = require("awful")
-local gears = require("gears")
-local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup").widget
+local awful                = require("awful")
+local gears                = require("gears")
+local menubar              = require("menubar")
+local hotkeys_popup        = require("awful.hotkeys_popup").widget
 local keybindings_callback = require("lib.keybindings_callback")
-
 local var = {}
 
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -29,7 +27,7 @@ local function mkKeys(keybindings)
    return createdKeybindings
 end
 
-local function mouse()
+local function mouse(mymainmenu)
    root.buttons(gears.table.join(
 		   awful.button({ }, 3, function () mymainmenu:toggle() end),
 		   awful.button({ }, 4, awful.tag.viewnext),
@@ -37,7 +35,7 @@ local function mouse()
    ))
 end
 
-local function keyboard()
+local function keyboard(mymainmenu, terminal)
    keysToCreate =
       {
 	 {{modkey           }, "s",                    hotkeys_popup.show_help,                                             "show help",                             "Awesome"        },
@@ -117,11 +115,9 @@ local clientbuttons = gears.table.join(
    awful.button({ modkey }, 1, awful.mouse.client.move),
    awful.button({ modkey }, 3, awful.mouse.client.resize))
 
-var.modkey = modkey
-var.mouse = mouse
-var.keyboard = keyboard
-var.clientkeys = clientkeys
+var.modkey        = modkey
+var.mouse         = mouse
+var.keyboard      = keyboard
+var.clientkeys    = clientkeys
 var.clientbuttons = clientbuttons
-
-
 return var
