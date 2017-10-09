@@ -29,7 +29,26 @@ local function mkKeys(keybindings)
    return createdKeybindings
 end
 
-local function mouse(mymainmenu)
+local clientbuttons = gears.table.join(
+   awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
+   awful.button({ modkey }, 1, awful.mouse.client.move),
+   awful.button({ modkey }, 3, awful.mouse.client.resize))
+
+local clientkeys = mkKeys(
+   {
+      {{modkey,          }, "f",      keybindings_callback.toggle_fullscreen,            "toggle fullscreen",  "Client"},
+      {{modkey, "Shift"  }, "c",      function (c) c:kill()              end,            "close",              "Client"},
+      {{modkey, "Control"}, "space",  awful.client.floating.toggle          ,            "toggle floating",    "Client"},
+      {{modkey, "Control"}, "Return", function (c) c:swap(awful.client.getmaster()) end, "move to master",     "Client"},
+      {{modkey, "Shift"  }, "u",      function (c) c:move_to_screen()               end, "move to screen",     "Client"},
+      {{modkey,          }, "t",      function (c) c.ontop = not c.ontop            end, "toggle keep on top", "Client"},
+      {{modkey,          }, "n",      keybindings_callback.minimize,                     "minimize",           "Client"},
+      {{modkey,          }, "m",      keybindings_callback.maximize,                     "maximize",           "Client"}
+   }
+)
+
+local function mouse()
+   local mymainmenu = standard_cfg.mymainmenu()
    root.buttons(gears.table.join(
 		   awful.button({ }, 3, function () mymainmenu:toggle() end),
 		   awful.button({ }, 4, awful.tag.viewnext),
@@ -37,7 +56,8 @@ local function mouse(mymainmenu)
    ))
 end
 
-local function keyboard(mymainmenu)
+local function keyboard()
+   local mymainmenu = standard_cfg.mymainmenu()
    keysToCreate =
       {
 	 {{modkey           }, "s",                    hotkeys_popup.show_help,                                             "show help",                             "Awesome"        },
@@ -99,27 +119,14 @@ local function keyboard(mymainmenu)
    root.keys(globalkeys)
 end
 
-local clientkeys = mkKeys(
-   {
-      {{modkey,          }, "f",      keybindings_callback.toggle_fullscreen,            "toggle fullscreen",  "Client"},
-      {{modkey, "Shift"  }, "c",      function (c) c:kill()              end,            "close",              "Client"},
-      {{modkey, "Control"}, "space",  awful.client.floating.toggle          ,            "toggle floating",    "Client"},
-      {{modkey, "Control"}, "Return", function (c) c:swap(awful.client.getmaster()) end, "move to master",     "Client"},
-      {{modkey, "Shift"  }, "u",      function (c) c:move_to_screen()               end, "move to screen",     "Client"},
-      {{modkey,          }, "t",      function (c) c.ontop = not c.ontop            end, "toggle keep on top", "Client"},
-      {{modkey,          }, "n",      keybindings_callback.minimize,                     "minimize",           "Client"},
-      {{modkey,          }, "m",      keybindings_callback.maximize,                     "maximize",           "Client"}
-   }
-)
+local function setup()
+   mouse()
+   keyboard()
+end
 
-local clientbuttons = gears.table.join(
-   awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-   awful.button({ modkey }, 1, awful.mouse.client.move),
-   awful.button({ modkey }, 3, awful.mouse.client.resize))
-
-var.modkey        = modkey
-var.mouse         = mouse
-var.keyboard      = keyboard
-var.clientkeys    = clientkeys
 var.clientbuttons = clientbuttons
+var.clientkeys    = clientkeys
+var.modkey        = modkey
+var.setup         = setup
+
 return var
