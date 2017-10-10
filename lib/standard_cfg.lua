@@ -8,7 +8,6 @@ local menubar   = require("menubar")
 local naughty   = require("naughty")
 local wibox     = require("wibox")
 require("awful.autofocus")
-require("debian.menu")
 
 --------------------------------------------------------------------------------
 -- Local variables/functions                                                  --
@@ -16,13 +15,6 @@ require("debian.menu")
 local terminal = "x-terminal-emulator"
 local editor = os.getenv("EDITOR") or "editor"
 local editor_cmd = terminal .. " -e " .. editor
-
-local myawesomemenu = {
-   { "hotkeys",     function() return false, hotkeys_popup.show_help end},
-   { "manual",      terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart",     awesome.restart },
-   { "quit",        function() awesome.quit() end}}
 
 local function error_handling()
    -- Check if awesome encountered an error during startup and fell back to
@@ -80,10 +72,16 @@ end
 -- Exported variables/functions                                               --
 --------------------------------------------------------------------------------
 local function mymainmenu()
+   local myawesomemenu = {
+      { "hotkeys",     function() return false, hotkeys_popup.show_help end},
+      { "manual",      terminal .. " -e man awesome" },
+      { "edit config", editor_cmd .. " " .. awesome.conffile },
+      { "restart",     awesome.restart },
+      { "quit",        function() awesome.quit() end}}
+
    return awful.menu({
 	 items = {
 	    {"awesome",       myawesomemenu, beautiful.awesome_icon},
-	    {"Debian",        debian.menu.Debian_menu.Debian},
 	    {"open terminal", terminal}}})
 end
 
