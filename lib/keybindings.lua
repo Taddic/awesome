@@ -98,8 +98,6 @@ local function keyboard()
 	 {{                 }, "XF86MonBrightnessDown",function () awful.spawn("light -U 5") end,                           "Decrease brightness",                   "Brightness keys"}}
 
    -- Bind all key numbers to tags.
-   -- Be careful: we use keycodes to make it works on any keyboard layout.
-   -- This should map on the top row of your keyboard, usually 1 to 9.
    for i = 1, 9 do
       table.insert(keysToCreate, {{modkey                     }, "#" .. i + 9, keybindings_callback.focus_tag(i),            "view tag #"..i,                       "Tag"})
       table.insert(keysToCreate, {{modkey, "Control"          }, "#" .. i + 9, keybindings_callback.toggle_tag(i),           "toggle tag #" .. i,                   "Tag"})

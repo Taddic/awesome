@@ -2,13 +2,13 @@
 -- Standard awesome library                                                   --
 --------------------------------------------------------------------------------
 local awful     = require("awful")
-local beautiful = require("beautiful") -- Theme handling library
+local beautiful = require("beautiful")
 local gears     = require("gears")
 local menubar   = require("menubar")
-local naughty   = require("naughty")   -- Notification library
+local naughty   = require("naughty")
 local wibox     = require("wibox")
 require("awful.autofocus")
-require("debian.menu")                 -- Load Debian menu entries
+require("debian.menu")
 
 --------------------------------------------------------------------------------
 -- Local variables/functions                                                  --
