@@ -41,7 +41,8 @@ local app_autostart = {
 --------------------------------------------------------------------------------
 -- Configuration                                                              --
 --------------------------------------------------------------------------------
-standard_cfg.setup(widgets, keybindings.modkey)
+--standard_cfg.setup(widgets, keybindings.modkey)
+standard_cfg.setup(widgets, keybindings.modkey, "default")
 keybindings.setup()
 rules.setup(app_rules)
 autostart.setup(app_autostart)

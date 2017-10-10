@@ -58,16 +58,6 @@ local function layouts()
       awful.layout.suit.corner.nw,
    }
 end
-
-local function theme()
-   -- Themes define colours, icons, font and wallpapers.
-   beautiful.init("~/.config/awesome/themes/default/theme.lua")
-   local user_wallpaper = awful.util.get_configuration_dir() .. "wallpaper/background.png"
-   if gears.filesystem.file_readable(user_wallpaper) then
-      beautiful.wallpaper = user_wallpaper
-   end
-end
-
 --------------------------------------------------------------------------------
 -- Exported variables/functions                                               --
 --------------------------------------------------------------------------------
@@ -97,9 +87,28 @@ local function set_wallpaper(s)
    end
 end
 
-local function setup(widgets, modkey)
+local function theme(set_theme)
+   local themes_dir = awful.util.get_configuration_dir() .. "themes/"
+   local default_theme = themes_dir .. "default/theme.lua"
+   if set_theme == nil then
+      beautiful.init(default_theme)
+   else
+      set_theme = themes_dir .. set_theme .. "/theme.lua"
+      if gears.filesystem.file_readable(set_theme) then
+	 beautiful.init(set_theme)
+      else
+	 beautiful.init(default_theme)
+      end
+   end
+   local user_wallpaper = awful.util.get_configuration_dir() .. "wallpaper/background.png"
+   if gears.filesystem.file_readable(user_wallpaper) then
+      beautiful.wallpaper = user_wallpaper
+   end
+end
+
+local function setup(widgets, modkey, set_theme)
    error_handling()
-   theme()
+   theme(set_theme)
    layouts()
    menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 
@@ -275,7 +284,8 @@ local function setup(widgets, modkey)
    client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 end
 
-return {mymainmenu     = mymainmenu,
-	setup          = setup,
-	set_wallpaper  = set_wallpaper,
-	terminal       = terminal}
+return {mymainmenu    = mymainmenu,
+	setup         = setup,
+	set_wallpaper = set_wallpaper,
+	terminal      = terminal,
+	theme         = theme}
