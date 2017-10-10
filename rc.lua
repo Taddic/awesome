@@ -20,6 +20,9 @@ require("widgets.awesome-wm-widgets.brightness-widget.brightness")
 require("widgets.awesome-wm-widgets.spotify-widget.spotify")
 require("widgets.awesome-wm-widgets.volume-widget.volume")
 
+--------------------------------------------------------------------------------
+-- Local variables to be used in the configuration section                    --
+--------------------------------------------------------------------------------
 local widgets = {
    spotify_widget,
    brightness_widget(true),
