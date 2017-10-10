@@ -2,7 +2,7 @@
 -- Standard awesome library                                                   --
 --------------------------------------------------------------------------------
 local awful         = require("awful")
-local beautiful     = require("beautiful") -- Theme handling library
+local beautiful     = require("beautiful")
 
 --------------------------------------------------------------------------------
 -- User defined libraries                                                     --
