@@ -19,19 +19,12 @@ require("widgets.awesome-wm-widgets.battery-widget.battery")
 require("widgets.awesome-wm-widgets.brightness-widget.brightness")
 require("widgets.awesome-wm-widgets.spotify-widget.spotify")
 require("widgets.awesome-wm-widgets.volume-widget.volume")
-require("widgets.network.pech")
-mynetworklauncher = awful.widget.launcher(
-   {image = beautiful.awesome_icon,
-    menu = awful.menu({items = netmgr.generate_network_menu()})})
-
-
 
 local widgets = {
    spotify_widget,
    brightness_widget,
    volume_widget,
    battery_widget,
-   mynetworklauncher,
 }
 
 local app_rules = {
