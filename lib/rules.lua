@@ -1,9 +1,9 @@
 --------------------------------------------------------------------------------
 -- Standard awesome library                                                   --
 --------------------------------------------------------------------------------
-local awful       = require("awful")
-local beautiful   = require("beautiful")
-local screen_lib  = require("awful.screen")
+local awful     = require("awful")
+local beautiful = require("beautiful")
+local capi      = {screen = screen}
 
 --------------------------------------------------------------------------------
 -- User defined libraries                                                     --
@@ -13,7 +13,7 @@ local keybindings = require("lib.keybindings")
 --------------------------------------------------------------------------------
 -- Local variables/functions                                                  --
 --------------------------------------------------------------------------------
-local function mkRule(new_rule,new_prop)
+local function mkRule(new_rule, new_prop)
    return { rule = new_rule, properties = new_prop }
 end
 
@@ -61,7 +61,13 @@ local function setup(rules)
    insertRule(mkAnyRule({type = {"normal", "dialog"}}, {titlebars_enabled = false}))
 
    for _,rule in ipairs(rules) do
-      local new_rule = mkRule(rule[1], rule[2])
+      local prop = rule[2]
+      local num_screen = capi.screen.count()
+      if prop["screen"] > num_screen then
+	 prop["screen"] = num_screen
+      end
+
+      local new_rule = mkRule(rule[1], prop)
       insertRule(new_rule)
    end
 end
