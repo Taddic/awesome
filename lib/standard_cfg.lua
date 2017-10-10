@@ -99,7 +99,7 @@ local function set_wallpaper(s)
    end
 end
 
-local function setup(widgets)
+local function setup(widgets, modkey)
    error_handling()
    theme()
    layouts()
