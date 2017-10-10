@@ -13,12 +13,18 @@ local menubar              = require("menubar")
 local keybindings_callback = require("lib.keybindings_callback")
 local standard_cfg         = require("lib.standard_cfg")
 
-
+--------------------------------------------------------------------------------
+-- Local variables/functions                                                  --
+--------------------------------------------------------------------------------
+-- Variable modkey is also exported but is used by other functions so it needs
+-- higher up in the file.
 local modkey = "Mod4" -- Usually, the key with a logo between Control and Alt.
+
 local altkey = "Mod1" -- The Alt key
 
 local function mkKeybinding(modifiers, key, command, descript, key_group)
-   return awful.key(modifiers, key, command, {description = descript, group = key_group})
+   return awful.key(modifiers, key, command,
+		    {description = descript, group = key_group})
 end
 
 local function mkKeys(keybindings)
@@ -29,26 +35,11 @@ local function mkKeys(keybindings)
       local command      = keybind[3]
       local descript     = keybind[4]
       local key_group    = keybind[5]
-      local new_keybind  = mkKeybinding(modifier, key, command, descript, key_group)
+      local new_keybind  = mkKeybinding(modifier,key,command,descript,key_group)
       createdKeybindings = gears.table.join(createdKeybindings, new_keybind)
    end
    return createdKeybindings
 end
-
-local clientbuttons = gears.table.join(
-   awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-   awful.button({ modkey }, 1, awful.mouse.client.move),
-   awful.button({ modkey }, 3, awful.mouse.client.resize))
-
-local clientkeys = mkKeys({
-      {{modkey,          }, "f",      keybindings_callback.toggle_fullscreen,            "toggle fullscreen",  "Client"},
-      {{modkey, "Shift"  }, "c",      function (c) c:kill()              end,            "close",              "Client"},
-      {{modkey, "Control"}, "space",  awful.client.floating.toggle          ,            "toggle floating",    "Client"},
-      {{modkey, "Control"}, "Return", function (c) c:swap(awful.client.getmaster()) end, "move to master",     "Client"},
-      {{modkey, "Shift"  }, "u",      function (c) c:move_to_screen()               end, "move to screen",     "Client"},
-      {{modkey,          }, "t",      function (c) c.ontop = not c.ontop            end, "toggle keep on top", "Client"},
-      {{modkey,          }, "n",      keybindings_callback.minimize,                     "minimize",           "Client"},
-      {{modkey,          }, "m",      keybindings_callback.maximize,                     "maximize",           "Client"}})
 
 local function mouse()
    local mymainmenu = standard_cfg.mymainmenu()
@@ -119,6 +110,26 @@ local function keyboard()
    globalkeys = mkKeys(keysToCreate)
    root.keys(globalkeys)
 end
+
+--------------------------------------------------------------------------------
+-- Exported variables/functions                                               --
+--------------------------------------------------------------------------------
+local clientbuttons = gears.table.join(
+   awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
+   awful.button({ modkey }, 1, awful.mouse.client.move),
+   awful.button({ modkey }, 3, awful.mouse.client.resize))
+
+local clientkeys = mkKeys({
+      {{modkey,          }, "f",      keybindings_callback.toggle_fullscreen,            "toggle fullscreen",  "Client"},
+      {{modkey, "Shift"  }, "c",      function (c) c:kill()              end,            "close",              "Client"},
+      {{modkey, "Control"}, "space",  awful.client.floating.toggle          ,            "toggle floating",    "Client"},
+      {{modkey, "Control"}, "Return", function (c) c:swap(awful.client.getmaster()) end, "move to master",     "Client"},
+      {{modkey, "Shift"  }, "u",      function (c) c:move_to_screen()               end, "move to screen",     "Client"},
+      {{modkey,          }, "t",      function (c) c.ontop = not c.ontop            end, "toggle keep on top", "Client"},
+      {{modkey,          }, "n",      keybindings_callback.minimize,                     "minimize",           "Client"},
+      {{modkey,          }, "m",      keybindings_callback.maximize,                     "maximize",           "Client"}})
+
+
 
 local function setup()
    mouse()
