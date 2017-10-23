@@ -19,7 +19,7 @@ require("widgets.awesome-wm-widgets.volume-widget.volume")
 --------------------------------------------------------------------------------
 local widgets = {
    spotify_widget,
-   brightness_widget(true),
+   brightness_widget,
    volume_widget,
    battery_widget,
 }
