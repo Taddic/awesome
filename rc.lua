@@ -33,6 +33,7 @@ local app_rules = {
 }
 
 local app_autostart = {
+   "unity-settings-daemon",
    "chromium-browser",
    "discord",
    "spotify",
