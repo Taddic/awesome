@@ -32,12 +32,14 @@ local function setup(rules)
    insertRule(mkRule({},{
 		    border_width = beautiful.border_width,
 		    border_color = beautiful.border_normal,
-		    focus = awful.client.focus.filter,
-		    raise = true,
-		    keys = keybindings.clientkeys,
-		    buttons = keybindings.clientbuttons,
-		    screen = awful.screen.preferred,
-		    placement = awful.placement.no_overlap+awful.placement.no_offscreen}))
+		    focus        = awful.client.focus.filter,
+		    raise        = true,
+		    keys         = keybindings.clientkeys,
+		    buttons      = keybindings.clientbuttons,
+		    screen       = awful.screen.preferred,
+		    placement    = awful.placement.no_overlap+awful.placement.no_offscreen,
+		    opacity      = 0.5}
+   ))
 
    insertRule(mkAnyRule({instance = {"DTA",        -- Firefox addon DownThemAll.
 				     "copyq",      -- Includes session name in class.
