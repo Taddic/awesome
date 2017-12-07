@@ -36,8 +36,7 @@ local app_autostart = {
    "unity-settings-daemon",
    "chromium-browser",
    "discord",
-   "spotify",
-   "thunderbird",
+   "spotify"
 }
 --------------------------------------------------------------------------------
 -- Configuration                                                              --
